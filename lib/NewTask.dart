@@ -7,18 +7,19 @@ import 'ViewController.dart';
 import 'Todo.dart';
 import 'Task.dart';
 import 'main.dart';
-import 'TaskBox.dart';
+import 'Enums.dart';
 
 class NewTask extends StatelessWidget {
-  NewTask({Key key,this.todos}) :
+  NewTask({Key key,}) :
         super(key: key);
-  final List<TaskBox> todos;
+
   String title = "";
   String text = "";
   DateTime time;
   String type;
   final double buttonHeight = 60;
   final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
+  MyToggleButtons buttons = MyToggleButtons();
 
   Future pokus(BuildContext context){
     return showDialog(
@@ -30,6 +31,8 @@ class NewTask extends StatelessWidget {
         }
     );
   }
+
+
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +62,8 @@ class NewTask extends StatelessWidget {
               }
               else
               {
-                controller.AddTask(new Task(title: title, description: text, type: "todo"));
-                viewController.Refresh("todo");
+                controller.AddTask(new Task(title: title, description: text, type: Types.todo /*buttons.state.GetType()*/));
+                viewController.Refresh(Types.todo/*buttons.state.GetType()*/);
                 Navigator.pop(context);
               }
             },
@@ -71,51 +74,24 @@ class NewTask extends StatelessWidget {
         shrinkWrap: true,
         padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
         children: <Widget>[
-          Row(
+          /*Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              ButtonTheme(
-                height: buttonHeight,
-                child: Padding(
-                  padding: myPadding,
-                  child: RaisedButton(
-                    onPressed: (){},
-                    child: Text("bla"),
-                  ),
-                ),
+              MyButton(
+                text: "Todo",
               ),
-              ButtonTheme(
-                height: buttonHeight,
-                child: Padding(
-                  padding: myPadding,
-                  child: RaisedButton(
-                    onPressed: (){},
-                    child: Text("bla"),
-                  ),
-                ),
+              MyButton(
+                text: "ASAP",
               ),
-              ButtonTheme(
-                height: buttonHeight,
-                child: Padding(
-                  padding: myPadding,
-                  child: RaisedButton(
-                    onPressed: (){},
-                    child: Text("bla"),
-                  ),
-                ),
+              MyButton(
+                text: "Maybe",
               ),
-              ButtonTheme(
-                height: buttonHeight,
-                child: Padding(
-                  padding: myPadding,
-                  child: RaisedButton(
-                    onPressed: (){},
-                    child: Text("bla"),
-                  ),
-                ),
+              MyButton(
+                text: "Project",
               ),
             ],
-          ),
+          ),*/
+          buttons,
           TextField(
             onChanged: (String str){title = str;},
             decoration: InputDecoration(
@@ -134,10 +110,11 @@ class NewTask extends StatelessWidget {
           ),
           TextField(
             onTap: (){
+              DateTime now = DateTime.now();
               Future<DateTime> selectedDate = showDatePicker(
                 context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
+                firstDate: now,
+                initialDate: now,
                 lastDate: DateTime(2030),
                 builder: (BuildContext context, Widget child) {
                   return Theme(
@@ -152,21 +129,166 @@ class NewTask extends StatelessWidget {
                 labelText: "Add reminder"
             ),
           ),
-
-          /*FlatButton(
-              child: Text(
-                  "buttonek"
-              ),
-            ),
-            RaisedButton(
-              onPressed: (){},
-              child: Text(
-                  "Add reminder"
-              ),
-            )
-            */
-
         ],
+      ),
+    );
+  }
+}
+
+
+class SamplePage extends StatefulWidget {
+  @override
+  _SamplePageState createState() => _SamplePageState();
+}
+
+class _SamplePageState extends State<SamplePage> {
+  List<bool> isSelected;
+
+  @override
+  void initState() {
+    isSelected = [true, false];
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            ToggleButtons(
+              borderColor: Colors.black,
+              fillColor: Colors.grey,
+              borderWidth: 2,
+              selectedBorderColor: Colors.black,
+              selectedColor: Colors.white,
+              borderRadius: BorderRadius.circular(0),
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Open 24 Hours',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Custom Hours',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
+              onPressed: (int index) {
+                setState(() {
+                  for (int i = 0; i < isSelected.length; i++) {
+                    if (i == index) {
+                      isSelected[i] = true;
+                    } else {
+                      isSelected[i] = false;
+                    }
+                  }
+                });
+              },
+              isSelected: isSelected,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class MyToggleButtons extends StatefulWidget{
+  MyToggleButtonsState state = MyToggleButtonsState();
+
+  MyToggleButtonsState GetState()
+  {
+    state = MyToggleButtonsState();
+    return state;
+  }
+
+  @override
+  MyToggleButtonsState createState() => GetState();
+}
+
+class MyToggleButtonsState extends State<MyToggleButtons>{
+  List<bool> isSelected;
+  final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
+  final double height = 60;
+
+
+  @override
+  void initState(){
+    isSelected = [true, false, false, false];
+    super.initState();
+  }
+
+  String GetType(){
+    if(isSelected[0] == true)
+      return Types.todo;
+    else if(isSelected[1] == true)
+      return Types.asap;
+    else
+      return Types.maybe;
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: ToggleButtons(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(13.0),
+              child: Icon(Icons.format_align_left, color: Colors.deepPurpleAccent,),
+            ),
+            Icon(Icons.priority_high, color: Colors.red,),
+            Icon(Icons.not_listed_location, color: Colors.blueGrey),
+            Icon(Icons.table_chart, color: Colors.yellow,)
+          ],
+          onPressed: (int index) {
+            setState(() {
+              for (int buttonIndex = 0; buttonIndex < isSelected.length; buttonIndex++) {
+                if (buttonIndex == index) {
+                  isSelected[buttonIndex] = true;
+                } else {
+                  isSelected[buttonIndex] = false;
+                }
+              }
+            });
+          },
+          isSelected: isSelected,
+        ),
+      ),
+    );
+  }
+
+}
+
+
+class MyButton extends StatelessWidget {
+  MyButton({Key key, this.text}) :
+        super(key: key);
+
+
+  final String text;
+  final double height = 60;
+  final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
+
+
+  Widget build(BuildContext context) {
+    return ButtonTheme(
+      height: height,
+      child: Padding(
+        padding: myPadding,
+        child: RaisedButton(
+          onPressed: (){},
+          child: Text("text"),
+        ),
       ),
     );
   }
