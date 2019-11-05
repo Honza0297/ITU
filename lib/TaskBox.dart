@@ -59,12 +59,19 @@ class TaskBox extends StatelessWidget {
 
               ],), actions: <Widget>[
             IconSlideAction(
-              caption: 'Done',
               color: Colors.green,
               icon: Icons.done,
               onTap: null,
             ),
           ],
+
+            secondaryActions: <Widget>[
+              IconSlideAction(
+                color: Colors.red,
+                icon: Icons.delete,
+                onTap: null,
+              ),
+            ],
             dismissal: SlidableDismissal(
               child: SlidableDrawerDismissal(),
               onDismissed: (action){
@@ -72,23 +79,17 @@ class TaskBox extends StatelessWidget {
                 {
                   case SlideActionType.primary:
                     controller.MarkDone(this.id);
+                    Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked as Done.")));
                     break;
                   case SlideActionType.secondary:
                     controller.RemoveTask(this.id);
+                    Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked as Deleted.")));
                     break;
                   default:
                 }
                 viewController.Refresh(this.task.type);
               },
             ),
-            secondaryActions: <Widget>[
-              IconSlideAction(
-                caption: 'Delete',
-                color: Colors.red,
-                icon: Icons.delete,
-                onTap: null,
-              ),
-            ],
           ),
 
 

@@ -7,6 +7,7 @@ import 'ViewController.dart';
 import 'Todo.dart';
 import 'NewTask.dart';
 import 'Asap.dart';
+import 'Maybe.dart';
 import 'TaskBox.dart';
 
 class ViewController
@@ -14,7 +15,7 @@ class ViewController
   ViewController({Key key,});
   var todoView = new TodoView();
   var asapView = new AsapView();
-  //var maybeView = new MaybeView();
+  var maybeView = new MaybeView();
   //var doneView = new DoneView();
   void Refresh(String type)
   {
@@ -36,5 +37,16 @@ class ViewController
     return todoView;
   }
 
+  AsapView NewAsapView()
+  {
+    asapView = new AsapView();
+    return asapView;
+  }
+
+  MaybeView NewMaybeView()
+  {
+    maybeView = new MaybeView();
+    return maybeView;
+  }
 
 }
