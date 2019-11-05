@@ -8,7 +8,7 @@ import 'Todo.dart';
 import 'NewTask.dart';
 import 'Asap.dart';
 import 'Maybe.dart';
-import 'TaskBox.dart';
+import 'Enums.dart';
 
 class ViewController
 {
@@ -21,11 +21,14 @@ class ViewController
   {
     switch(type)
     {
-      case "todo":
+      case Types.todo:
         todoView.refresh();
         break;
-      case "asap":
+      case Types.asap:
         asapView.refresh();
+        break;
+      case Types.maybe:
+        maybeView.refresh();
         break;
       default:
     }

@@ -5,7 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
 import 'Task.dart';
-import 'NewTask.dart';
+import 'Enums.dart';
 import 'main.dart';
 import 'TaskBox.dart';
 
@@ -67,7 +67,7 @@ class Controller{
 
   List<TaskBox> GetList(String type)
   {
-    return taskBoxes.where((item) => item.task.type == type && item.task.state == "active").toList();
+    return taskBoxes.where((item) => item.task.type == type && item.task.state == States.active).toList();
   }
 
 }

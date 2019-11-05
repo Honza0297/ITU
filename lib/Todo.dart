@@ -16,12 +16,12 @@ class TodoTab extends StatefulWidget{
 }
 
 class TodoView extends State<TodoTab>{
-  List<TaskBox> todos = controller.GetList("todo");
+  List<TaskBox> todos = controller.GetList(Types.todo);
 
   void refresh()
   {
     setState(() {
-      todos = controller.GetList("todo");
+      todos = controller.GetList(Types.todo);
     });
   }
 

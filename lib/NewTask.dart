@@ -9,29 +9,26 @@ import 'Task.dart';
 import 'main.dart';
 import 'Enums.dart';
 
+class TypeData {
+
+  //TypeData(this.type);
+
+  String type = Types.todo;
+}
+
 class NewTask extends StatelessWidget {
-  NewTask({Key key,}) :
-        super(key: key);
+  NewTask({Key key,}): super(key: key){
+  }
+
+  static TypeData typeClass = new TypeData();
 
   String title = "";
   String text = "";
   DateTime time;
-  String type;
+  //String type;
   final double buttonHeight = 60;
   final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
-  MyToggleButtons buttons = MyToggleButtons();
-
-  Future pokus(BuildContext context){
-    return showDialog(
-        context: context,
-        builder: (context){
-          return AlertDialog(
-            content: Text("pes"),
-          );
-        }
-    );
-  }
-
+  MyToggleButtons buttons = MyToggleButtons(typeClass);
 
 
   Widget build(BuildContext context) {
@@ -62,8 +59,15 @@ class NewTask extends StatelessWidget {
               }
               else
               {
-                controller.AddTask(new Task(title: title, description: text, type: Types.todo /*buttons.state.GetType()*/));
-                viewController.Refresh(Types.todo/*buttons.state.GetType()*/);
+                controller.AddTask(new Task(title: title, description: text, type: typeClass.type /*buttons.state.GetType()*/));
+                try
+                {
+                  viewController.Refresh(typeClass.type/*buttons.state.GetType()*/);
+                }
+                catch(e)
+              {
+
+              }
                 Navigator.pop(context);
               }
             },
@@ -202,19 +206,27 @@ class _SamplePageState extends State<SamplePage> {
 
 
 class MyToggleButtons extends StatefulWidget{
-  MyToggleButtonsState state = MyToggleButtonsState();
+
+  MyToggleButtons(this.type);
+  TypeData type;
+
+ /* MyToggleButtonsState state = MyToggleButtonsState();
 
   MyToggleButtonsState GetState()
   {
     state = MyToggleButtonsState();
     return state;
   }
-
+*/
   @override
-  MyToggleButtonsState createState() => GetState();
+  MyToggleButtonsState createState() => MyToggleButtonsState(type);
 }
 
 class MyToggleButtonsState extends State<MyToggleButtons>{
+  MyToggleButtonsState(this.type){
+    type.type = Types.todo;
+  }
+  TypeData type;
   List<bool> isSelected;
   final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
   final double height = 60;
@@ -259,6 +271,7 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
                   isSelected[buttonIndex] = false;
                 }
               }
+              type.type = GetType();
             });
           },
           isSelected: isSelected,
@@ -266,6 +279,7 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
       ),
     );
   }
+
 
 }
 

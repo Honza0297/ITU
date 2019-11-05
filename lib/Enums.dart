@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 class Types
 {
-  static final String todo = "todo";
-  static final String asap = "asap";
-  static final String maybe = "maybe";
+  static const String todo = "todo";
+  static const String asap = "asap";
+  static const String maybe = "maybe";
 }
 
 class States
 {
-  static final String done = "done";
-  static final String active = "active";
-  static final String deleted = "deleted";
+  static const String done = "done";
+  static const String active = "active";
+  static const String deleted = "deleted";
 }
 
 class AppBarColor
