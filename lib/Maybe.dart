@@ -8,27 +8,24 @@ import 'Todo.dart';
 import 'NewTask.dart';
 import 'main.dart';
 import 'TaskBox.dart';
-import 'Enums.dart';
 
-class TodoTab extends StatefulWidget{
+class MaybeTab extends StatefulWidget{
   @override
-  TodoView createState() => viewController.NewTodoView();
+  MaybeView createState() => viewController.NewMaybeView();
 }
 
-class TodoView extends State<TodoTab>{
-  List<TaskBox> todos = controller.GetList("todo");
+class MaybeView extends State<MaybeTab>{
+  List<TaskBox> maybes = controller.GetList("maybe");
 
   void refresh()
   {
     setState(() {
-      todos = controller.GetList("todo");
+      maybes = controller.GetList("maybe");
     });
   }
 
   @override
   Widget build(BuildContext context){
-    currentColor = AppBarColor.todoColor;
-    return ListView(children: todos,);
+    return ListView(children: maybes,);
   }
-
 }

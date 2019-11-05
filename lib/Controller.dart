@@ -28,6 +28,22 @@ class Controller{
           type: "todo",
         )
     ),
+    TaskBox(
+        id: global_id++,
+        task: new Task(
+          title: "Haf",
+          description: "Meow",
+          type: "asap",
+        )
+    ),
+    TaskBox(
+        id: global_id++,
+        task: new Task(
+          title: "Maybe",
+          description: "Meow",
+          type: "maybe",
+        )
+    ),
   ];
 
   void AddTask(Task task)
