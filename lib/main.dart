@@ -21,7 +21,7 @@ var viewController = new ViewController();
 
 
 
-void main() => runApp(MyApp());
+void main() => runApp(BigDuckTasks());
 /*
 void main() {
   runApp(MaterialApp(
@@ -30,7 +30,12 @@ void main() {
   ));
 }
 */
-class MyApp extends StatelessWidget {
+class BigDuckTasks extends StatefulWidget {
+  @override
+  _BigDuckTasksState createState() => _BigDuckTasksState();
+}
+
+class _BigDuckTasksState extends State<BigDuckTasks> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
