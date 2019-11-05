@@ -16,12 +16,12 @@ class AsapTab extends StatefulWidget{
 }
 
 class AsapView extends State<AsapTab>{
-  List<TaskBox> asaps = controller.GetList("asap");
+  List<TaskBox> asaps = controller.GetList(Types.asap);
 
   void refresh()
   {
     setState(() {
-      asaps = controller.GetList("asap");
+      asaps = controller.GetList(Types.asap);
     });
   }
 
