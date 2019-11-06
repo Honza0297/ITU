@@ -14,28 +14,19 @@ import 'NewTask.dart';
 
 int global_id= 0;
 Controller controller = new Controller();
-Color currentColor = AppBarColor.todoColor;
 var viewController = new ViewController();
 
-
-
-
-
 void main() => runApp(BigDuckTasks());
-/*
-void main() {
-  runApp(MaterialApp(
-   // title: 'Navigation Basics',
-    home: MyApp(),
-  ));
-}
-*/
+
 class BigDuckTasks extends StatefulWidget {
   @override
   _BigDuckTasksState createState() => _BigDuckTasksState();
 }
 
 class _BigDuckTasksState extends State<BigDuckTasks> {
+  Color color = colors[0];
+  Text text = texts[0];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,24 +36,38 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
               length: 5,
               child: Scaffold(
                 appBar: AppBar(
+                  leading: Image.asset('assets/BigDuckSimple.png'),
+                  actions: <Widget>[
+                    IconButton(icon:  Icon(Icons.menu, color: Colors.white,),
+                    onPressed: (){
+                     //TODO Carbik misto pro napojeni menu :)
+                      },
+                    )
+                  ],
                   bottom: TabBar(
+                    onTap: (index){
+                      setState(() {
+                        this.color = colors[index];
+                        this.text = texts[index];
+                      });
+                    },
                     tabs: [
-                      Tab(icon: Icon(Icons.format_align_left, color: Colors.deepPurpleAccent,),),
-                      Tab(icon: Icon(Icons.priority_high, color: Colors.red,)),
-                      Tab(icon: Icon(Icons.calendar_today, color: Colors.green,)),
-                      Tab(icon: Icon(Icons.not_listed_location, color: Colors.blueGrey)),
-                      Tab(icon: Icon(Icons.table_chart, color: Colors.yellow,)),
+                      Tab(icon: Icon(Icons.format_align_left,),),
+                      Tab(icon: Icon(Icons.priority_high,)),
+                      Tab(icon: Icon(Icons.calendar_today, )),
+                      Tab(icon: Icon(Icons.not_listed_location, )),
+                      Tab(icon: Icon(Icons.table_chart, )),
                     ],
                   ),
-                  title: Text('GTD - Lite'),
-                  backgroundColor: currentColor,
+                  title: this.text,
+                  backgroundColor: this.color,
                 ),
                 body: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
                     TodoTab(),
                     AsapTab(),
-                    Icon(Icons.not_listed_location),
+                    Text("Calendar"),
                     MaybeTab(),
                     Icon(Icons.directions_car),
                   ],
@@ -70,10 +75,10 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                 floatingActionButton: FloatingActionButton(onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => NewTask()),
+                    MaterialPageRoute(builder: (context) => NewTask(color: this.color)),
                   );
                 },
-                  child: Icon(Icons.add,), backgroundColor: currentColor,),
+                  child: Icon(Icons.add,), backgroundColor: this.color),
               ),
             ),
           ),
