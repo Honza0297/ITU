@@ -15,9 +15,7 @@ class States
   static const String deleted = "deleted";
 }
 
-class AppBarColor
-{
-  static final Color todoColor = Colors.blue[400];
-  static final Color asapColor = Colors.red[400];
-  static final Color maybeColor = Colors.blueGrey[400];
-}
+List<Color> colors = [Colors.indigo[500], Colors.red[600],
+  Colors.green[600], Colors.blueGrey[600].withBlue(160), Colors.yellow[700]];
+List<Text> texts = [Text("Todo"), Text("Asap"), Text("Calendar"), Text("Maybe"), Text("Projects")];
+

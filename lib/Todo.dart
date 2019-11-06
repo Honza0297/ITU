@@ -27,7 +27,7 @@ class TodoView extends State<TodoTab>{
 
   @override
   Widget build(BuildContext context){
-    currentColor = AppBarColor.todoColor;
+    //currentColor = AppBarColor.todoColor;
     return ListView(children: todos,);
   }
 

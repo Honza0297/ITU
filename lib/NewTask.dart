@@ -17,13 +17,16 @@ class TypeData {
 }
 
 class NewTask extends StatelessWidget {
-  NewTask({Key key,}): super(key: key){
+  Color col;
+  NewTask({Key key, Color color}): super(key: key){
+    this.col = color;
   }
 
   static TypeData typeClass = new TypeData();
 
   String title = "";
   String text = "";
+
   DateTime time;
   //String type;
   final double buttonHeight = 60;
@@ -34,6 +37,7 @@ class NewTask extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: this.col,
         title: Text("New task"),
         //automaticallyImplyLeading: false, //asi nepotrebne
         leading:  IconButton(
@@ -256,11 +260,11 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(13.0),
-              child: Icon(Icons.format_align_left, color: Colors.deepPurpleAccent,),
+              child: Icon(Icons.format_align_left, color: colors[0], ),
             ),
-            Icon(Icons.priority_high, color: Colors.red,),
-            Icon(Icons.not_listed_location, color: Colors.blueGrey),
-            Icon(Icons.table_chart, color: Colors.yellow,)
+            Icon(Icons.priority_high, color: colors[1] ),
+            Icon(Icons.not_listed_location, color: colors[3] ),
+            Icon(Icons.table_chart, color: colors[4] )
           ],
           onPressed: (int index) {
             setState(() {
