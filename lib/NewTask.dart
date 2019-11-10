@@ -99,6 +99,7 @@ class _NewTaskState extends State<NewTask> {
         children: <Widget>[
           buttons,
           TextField(
+            autofocus: true,
             onChanged: (String str){title = str;},
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
