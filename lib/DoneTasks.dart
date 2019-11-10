@@ -12,20 +12,20 @@ import 'Enums.dart';
 
 class DoneTasks extends StatefulWidget{
   @override
-  DoneTasksView createState() => DoneTasksView();
+  DoneTasksView createState() => viewController.NewDoneTaskView();
 }
 
 class DoneTasksView extends State<DoneTasks>{
 
   List<TaskBox> tasks = controller.GetListByState(States.done);
-/*
+
   void refresh()
   {
     setState(() {
-      todos = controller.GetList(States.done);
+      tasks = controller.GetListByState(States.done);
     });
   }
-*/
+
   @override
   Widget build(BuildContext context){
     //currentColor = AppBarColor.todoColor;

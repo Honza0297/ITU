@@ -46,6 +46,11 @@ class Controller{
     ),
   ];
 
+  void Restore(int id)
+  {
+    taskBoxes.where((item) => item.id == id).first.task.state = States.active;
+  }
+
   void AddTask(Task task)
   {
     var temp =  new TaskBox(
@@ -56,7 +61,7 @@ class Controller{
   }
   void MarkDone(int id)
   {
-    taskBoxes.where((item) => item.id == id).first.task.state = "done";
+    taskBoxes.where((item) => item.id == id).first.task.state = States.done;
   }
 
   void RemoveTask(int id)

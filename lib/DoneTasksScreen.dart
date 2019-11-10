@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:itu/DoneTasks.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
 import 'Todo.dart';
@@ -35,18 +36,8 @@ class _DoneTasksScreenState extends State<DoneTasksScreen> {
             Navigator.pop(context);
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.check, color: Colors.white, ),
-            onPressed: (){
-                Navigator.pop(context);
-            },
-          ),
-        ],
       ),
-      body: ListView(
-        children: controller.GetListByState(States.done),
-      ),
+      body: DoneTasks(),
     );
   }
 }
