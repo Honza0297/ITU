@@ -11,6 +11,7 @@ import 'Todo.dart';
 import 'Asap.dart';
 import 'Maybe.dart';
 import 'NewTask.dart';
+import 'DoneTasksScreen.dart';
 
 int global_id= 0;
 Controller controller = new Controller();
@@ -26,27 +27,24 @@ class BigDuckTasks extends StatefulWidget {
 class _BigDuckTasksState extends State<BigDuckTasks> {
   Color color = colors[0];
   Text text = texts[0];
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
         home: Builder(
           builder: (context) => Center(
             child: DefaultTabController(
               length: 5,
               child: Scaffold(
+                drawerEdgeDragWidth: 0.0,
                 appBar: AppBar(
                   leading: Image.asset('assets/BigDuckSimple.png'),
-                  actions: <Widget>[
-                    IconButton(icon:  Icon(Icons.menu, color: Colors.white,),
-                    onPressed: (){
-                     //TODO Carbik misto pro napojeni menu :)
-                      },
-                    )
-                  ],
                   bottom: TabBar(
                     onTap: (index){
                       setState(() {
+                        this.index = index;
                         this.color = colors[index];
                         this.text = texts[index];
                       });
@@ -62,6 +60,52 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                   title: this.text,
                   backgroundColor: this.color,
                 ),
+                endDrawer: Drawer(
+                  child: ListView(
+                    children: <Widget>[
+                      DrawerHeader(
+                        child: Text("Menu"),
+                        decoration: BoxDecoration(
+                          color: colors[index],
+                        ),
+                      ),
+                      ListTile(
+                        title: Text("Statistics"),
+                        onTap: (){
+
+                        },
+                      ),
+                      ListTile(
+                        title: Text("Bin"),
+                        onTap: (){
+
+                        },
+                      ),
+                      ListTile(
+                        title: Text("Done tasks"),
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => DoneTasksScreen(color: this.color)),
+                          );
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        title: Text("Settings"),
+                        onTap: (){
+
+                        },
+                      ),
+                      ListTile(
+                        title: Text("About BigDuck Tasks"),
+                        onTap: (){
+
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 body: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
@@ -73,9 +117,14 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                   ],
                 ),
                 floatingActionButton: FloatingActionButton(onPressed: () {
+                  /*
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => NewTask(color: this.color)),
+                  );*/
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DoneTasksScreen(color: this.color)),
                   );
                 },
                   child: Icon(Icons.add,), backgroundColor: this.color),

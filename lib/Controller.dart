@@ -70,4 +70,8 @@ class Controller{
     return taskBoxes.where((item) => item.task.type == type && item.task.state == States.active).toList();
   }
 
+  List<TaskBox> GetListByState(String state)
+  {
+    return taskBoxes.where((item) => item.task.state == state).toList();
+  }
 }
