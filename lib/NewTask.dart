@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
@@ -9,6 +10,10 @@ import 'Task.dart';
 import 'main.dart';
 import 'Enums.dart';
 
+
+
+TimeOfDay lastPickedTime = TimeOfDay.fromDateTime(DateTime.utc(2019, 1,1,15,0));
+
 class TypeData {
 
   //TypeData(this.type);
@@ -16,28 +21,40 @@ class TypeData {
   String type = Types.todo;
 }
 
-class NewTask extends StatelessWidget {
-  Color col;
+class NewTask extends StatefulWidget {
   NewTask({Key key, Color color}): super(key: key){
     this.col = color;
   }
+  Color col;
 
   static TypeData typeClass = new TypeData();
 
+  @override
+  _NewTaskState createState() => _NewTaskState();
+}
+
+class _NewTaskState extends State<NewTask> {
   String title = "";
   String text = "";
+  DateTime dateTimeNotification;
+  final dtPickerController = new TextEditingController();
 
-  DateTime time;
-  //String type;
   final double buttonHeight = 60;
-  final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
-  MyToggleButtons buttons = MyToggleButtons(typeClass);
 
+  final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
+
+  MyToggleButtons buttons = MyToggleButtons(NewTask.typeClass);
+
+  @override
+  void dispose(){
+    dtPickerController.dispose();
+    super.dispose();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: this.col,
+        backgroundColor: this.widget.col,
         title: Text("New task"),
         //automaticallyImplyLeading: false, //asi nepotrebne
         leading:  IconButton(
@@ -63,14 +80,12 @@ class NewTask extends StatelessWidget {
               }
               else
               {
-                controller.AddTask(new Task(title: title, description: text, type: typeClass.type /*buttons.state.GetType()*/));
+                controller.AddTask(new Task(title: title, description: text, type: NewTask.typeClass.type, date: dateTimeNotification));
                 try
                 {
-                  viewController.Refresh(typeClass.type/*buttons.state.GetType()*/);
+                  viewController.Refresh(NewTask.typeClass.type);
                 }
-                catch(e)
-              {
-
+                catch(e) {
               }
                 Navigator.pop(context);
               }
@@ -82,23 +97,6 @@ class NewTask extends StatelessWidget {
         shrinkWrap: true,
         padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
         children: <Widget>[
-          /*Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              MyButton(
-                text: "Todo",
-              ),
-              MyButton(
-                text: "ASAP",
-              ),
-              MyButton(
-                text: "Maybe",
-              ),
-              MyButton(
-                text: "Project",
-              ),
-            ],
-          ),*/
           buttons,
           TextField(
             onChanged: (String str){title = str;},
@@ -117,9 +115,10 @@ class NewTask extends StatelessWidget {
             ),
           ),
           TextField(
-            onTap: (){
+            controller: dtPickerController,
+            onTap: () async {
               DateTime now = DateTime.now();
-              Future<DateTime> selectedDate = showDatePicker(
+              DateTime date = await showDatePicker(
                 context: context,
                 firstDate: now,
                 initialDate: now,
@@ -131,6 +130,21 @@ class NewTask extends StatelessWidget {
                   );
                 },
               );
+              lastPickedTime = await showTimePicker(
+                context: context,
+                initialTime: lastPickedTime,
+                builder: (BuildContext context, Widget child) {
+                  return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                    child: Theme(
+                      data: ThemeData.dark(),
+                      child: child,
+                    ),
+                  );
+                  }
+              );
+              dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
+              dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
             },
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -138,71 +152,6 @@ class NewTask extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-
-class SamplePage extends StatefulWidget {
-  @override
-  _SamplePageState createState() => _SamplePageState();
-}
-
-class _SamplePageState extends State<SamplePage> {
-  List<bool> isSelected;
-
-  @override
-  void initState() {
-    isSelected = [true, false];
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            ToggleButtons(
-              borderColor: Colors.black,
-              fillColor: Colors.grey,
-              borderWidth: 2,
-              selectedBorderColor: Colors.black,
-              selectedColor: Colors.white,
-              borderRadius: BorderRadius.circular(0),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Open 24 Hours',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Custom Hours',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ],
-              onPressed: (int index) {
-                setState(() {
-                  for (int i = 0; i < isSelected.length; i++) {
-                    if (i == index) {
-                      isSelected[i] = true;
-                    } else {
-                      isSelected[i] = false;
-                    }
-                  }
-                });
-              },
-              isSelected: isSelected,
-            ),
-          ],
-        ),
       ),
     );
   }
