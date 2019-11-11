@@ -46,6 +46,11 @@ class Controller{
     ),
   ];
 
+  void Restore(int id)
+  {
+    taskBoxes.where((item) => item.id == id).first.task.state = States.active;
+  }
+
   void AddTask(Task task)
   {
     var temp =  new TaskBox(
@@ -56,13 +61,14 @@ class Controller{
   }
   void MarkDone(int id)
   {
-    taskBoxes.where((item) => item.id == id).first.task.state = "done";
+    taskBoxes.where((item) => item.id == id).first.task.state = States.done;
   }
 
   void RemoveTask(int id)
   {
     //NOTE: pokud chceme kos, zde nastavit state na deleted
-    taskBoxes.removeWhere((item) => item.id == id);
+    taskBoxes.where((item) => item.id == id).first.task.state = States.deleted;
+    //taskBoxes.removeWhere((item) => item.id == id);
   }
 
   List<TaskBox> GetList(String type)
@@ -70,4 +76,8 @@ class Controller{
     return taskBoxes.where((item) => item.task.type == type && item.task.state == States.active).toList();
   }
 
+  List<TaskBox> GetListByState(String state)
+  {
+    return taskBoxes.where((item) => item.task.state == state).toList();
+  }
 }

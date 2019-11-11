@@ -8,6 +8,7 @@ import 'Todo.dart';
 import 'NewTask.dart';
 import 'main.dart';
 import 'Task.dart';
+import 'Enums.dart';
 
 class TaskBox extends StatelessWidget {
   TaskBox({Key key, this.id,  this.task}) :
@@ -57,14 +58,20 @@ class TaskBox extends StatelessWidget {
                 )
                 ),
 
-              ],), actions: <Widget>[
+              ],), actions: <Widget>[ this.task.state != States.done ?
             IconSlideAction(
               color: Colors.green,
               icon: Icons.done,
               onTap: null,
-            ),
+            )
+            :
+          IconSlideAction(
+            color: Colors.blue,
+            icon: Icons.refresh,
+            onTap: null,
+          )
+            ,
           ],
-
             secondaryActions: <Widget>[
               IconSlideAction(
                 color: Colors.red,
@@ -78,8 +85,23 @@ class TaskBox extends StatelessWidget {
                 switch(action)
                 {
                   case SlideActionType.primary:
-                    controller.MarkDone(this.id);
-                    Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked as Done.")));
+                    if (this.task.state == States.done)
+                      {
+                        controller.Restore(this.id);
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task Undoned.")));
+                        viewController.Refresh(States.done);
+                      }
+                    else if (this.task.state == States.deleted)
+                    {
+                      controller.Restore(this.id);
+                      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task Restored.")));
+                      viewController.Refresh(States.deleted);
+                    }
+                    else
+                      {
+                        controller.MarkDone(this.id);
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked as Done.")));
+                      }
                     break;
                   case SlideActionType.secondary:
                     controller.RemoveTask(this.id);
@@ -87,7 +109,10 @@ class TaskBox extends StatelessWidget {
                     break;
                   default:
                 }
-                viewController.Refresh(this.task.type);
+                try {
+                  viewController.Refresh(this.task.type);
+                }
+                catch(e){}
               },
             ),
           ),
