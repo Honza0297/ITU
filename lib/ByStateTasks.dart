@@ -10,19 +10,26 @@ import 'main.dart';
 import 'TaskBox.dart';
 import 'Enums.dart';
 
-class DoneTasks extends StatefulWidget{
+class ByStateTasks extends StatefulWidget{
+  const ByStateTasks({Key key, this.state}) : super(key: key);
+
+  final String state;
   @override
-  DoneTasksView createState() => viewController.NewDoneTaskView();
+  ByStateTasksView createState() => viewController.NewDoneTaskView(state);
 }
 
-class DoneTasksView extends State<DoneTasks>{
+class ByStateTasksView extends State<ByStateTasks>{
+  ByStateTasksView(this.state){
+    tasks = controller.GetListByState(state);
+  }
 
-  List<TaskBox> tasks = controller.GetListByState(States.done);
+  List<TaskBox> tasks;
+  final String state;
 
   void refresh()
   {
     setState(() {
-      tasks = controller.GetListByState(States.done);
+      tasks = controller.GetListByState(state);
     });
   }
 

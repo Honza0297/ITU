@@ -91,6 +91,12 @@ class TaskBox extends StatelessWidget {
                         Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task Undoned.")));
                         viewController.Refresh(States.done);
                       }
+                    else if (this.task.state == States.deleted)
+                    {
+                      controller.Restore(this.id);
+                      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task Restored.")));
+                      viewController.Refresh(States.deleted);
+                    }
                     else
                       {
                         controller.MarkDone(this.id);
@@ -103,7 +109,10 @@ class TaskBox extends StatelessWidget {
                     break;
                   default:
                 }
-                viewController.Refresh(this.task.type);
+                try {
+                  viewController.Refresh(this.task.type);
+                }
+                catch(e){}
               },
             ),
           ),

@@ -11,7 +11,7 @@ import 'Todo.dart';
 import 'Asap.dart';
 import 'Maybe.dart';
 import 'NewTask.dart';
-import 'DoneTasksScreen.dart';
+import 'TasksByStateScreen.dart';
 
 int global_id= 0;
 Controller controller = new Controller();
@@ -23,7 +23,8 @@ void main() => runApp(
     initialRoute: '/',
     routes:{
       '/': (context) => BigDuckTasks(),
-      '/done': (context) => DoneTasksScreen(),
+      '/done': (context) => TasksByStateScreen(States.done),
+      '/bin': (context) => TasksByStateScreen(States.deleted),
     }
   )
 );

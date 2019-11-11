@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:itu/DoneTasks.dart';
+import 'package:itu/ByStateTasks.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
 import 'Todo.dart';
@@ -12,23 +12,27 @@ import 'main.dart';
 import 'Enums.dart';
 
 
-class DoneTasksScreen extends StatefulWidget {
-  DoneTasksScreen({Key key, Color color}): super(key: key){
+class TasksByStateScreen extends StatefulWidget {
+  TasksByStateScreen(this.state, {Key key, Color color}): super(key: key){
     this.col = color;
   }
   Color col;
+  final String state;
 
   @override
-  _DoneTasksScreenState createState() => _DoneTasksScreenState();
+  _TasksByStateScreenState createState() => _TasksByStateScreenState(state);
 }
 
-class _DoneTasksScreenState extends State<DoneTasksScreen> {
+class _TasksByStateScreenState extends State<TasksByStateScreen> {
+  _TasksByStateScreenState(this.state);
+
+  final String state;
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: this.widget.col,
-        title: Text("Done tasks"),
+        title: Text(state == States.done ? "Done tasks" : "Bin"),
         //automaticallyImplyLeading: false, //asi nepotrebne
         leading:  IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white,),
@@ -37,7 +41,7 @@ class _DoneTasksScreenState extends State<DoneTasksScreen> {
           },
         ),
       ),
-      body: DoneTasks(),
+      body: ByStateTasks(state: state),
     );
   }
 }

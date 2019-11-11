@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:itu/DoneTasks.dart';
-import 'package:itu/DoneTasksScreen.dart';
+import 'package:itu/ByStateTasks.dart';
+import 'package:itu/TasksByStateScreen.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
 import 'Todo.dart';
@@ -18,13 +18,14 @@ class ViewController
   var todoView = new TodoView();
   var asapView = new AsapView();
   var maybeView = new MaybeView();
-  var doneView = new DoneTasksView();
+  var doneView;// = new DoneTasksView();
 
   void Refresh(String typeOrState)
   {
     switch(typeOrState)
     {
       case States.done:
+      case States.deleted:
         doneView.refresh();
         break;
       case Types.todo:
@@ -58,9 +59,9 @@ class ViewController
     return maybeView;
   }
 
-  DoneTasksView NewDoneTaskView()
+  ByStateTasksView NewDoneTaskView(String state)
   {
-    doneView = new DoneTasksView();
+    doneView = new ByStateTasksView(state);
     return doneView;
   }
 
