@@ -63,6 +63,10 @@ class Controller{
   {
     taskBoxes.where((item) => item.id == id).first.task.state = States.done;
   }
+  void KillTask(int id)
+  {
+    taskBoxes.removeWhere((item) => item.id == id);
+  }
 
   void RemoveTask(int id)
   {

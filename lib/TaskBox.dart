@@ -34,13 +34,12 @@ class TaskBox extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topLeft,
 
-                    child:
-                    Text(
-                        this.task.title, textScaleFactor: 1.2, style: TextStyle(
-                      fontWeight: FontWeight.bold,
-
-                    )
-                    ),),)
+                    child: Row(children: <Widget>[Expanded(child: Text(
+                        this.task.title, textScaleFactor: 1.2, style:
+                          TextStyle(fontWeight: FontWeight.bold,)
+                    )),
+                    Text(this.task.date == null ? "" : getNiceDate(this.task.date), textAlign: TextAlign.right,)], )
+                    ,),)
                 ),
                 Expanded(flex: 5, child:
                 Padding(
@@ -58,19 +57,18 @@ class TaskBox extends StatelessWidget {
                 )
                 ),
 
-              ],), actions: <Widget>[ this.task.state != States.done ?
-            IconSlideAction(
-              color: Colors.green,
-              icon: Icons.done,
-              onTap: null,
-            )
-            :
+              ],), actions: <Widget>[ this.task.state == States.active ?
+          IconSlideAction(
+            color: Colors.green,
+            icon: Icons.done,
+            onTap: null,
+          )
+          :
           IconSlideAction(
             color: Colors.blue,
             icon: Icons.refresh,
             onTap: null,
-          )
-            ,
+          ),
           ],
             secondaryActions: <Widget>[
               IconSlideAction(
@@ -104,8 +102,18 @@ class TaskBox extends StatelessWidget {
                       }
                     break;
                   case SlideActionType.secondary:
-                    controller.RemoveTask(this.id);
-                    Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked as Deleted.")));
+                    if(this.task.state == States.active)
+                      {
+                        controller.RemoveTask(this.id);
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked as Deleted.")));
+                      }
+                    else
+                      {
+                        controller.KillTask(this.id);
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked deleted permanently.")));
+                        viewController.Refresh(States.deleted);
+                        viewController.Refresh(States.done);
+                      }
                     break;
                   default:
                 }
@@ -122,5 +130,13 @@ class TaskBox extends StatelessWidget {
 
         )
     );
+  }
+
+  getNiceDate(DateTime date) {
+    return date.day.toString() +
+        "-" + date.month.toString() +
+        "-" + date.year.toString() +
+        " " + date.hour.toString() +
+        "." + (date.minute.toInt()==0 ? "00" : date.minute.toString());
   }
 }
