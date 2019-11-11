@@ -85,8 +85,10 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                       ),
                       ListTile(
                         title: Text("Bin"),
-                        onTap: (){
-                          Navigator.pushNamed(context, '/bin');
+                        onTap: () async {
+                          await Navigator.pushNamed(context, '/bin');
+                          Navigator.pop(context);
+
                         },
                       ),
                       ListTile(
