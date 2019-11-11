@@ -24,7 +24,7 @@ class ViewController
   {
     switch(typeOrState)
     {
-      case States.active:
+      case States.done:
         doneView.refresh();
         break;
       case Types.todo:
