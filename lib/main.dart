@@ -17,7 +17,16 @@ int global_id= 0;
 Controller controller = new Controller();
 var viewController = new ViewController();
 
-void main() => runApp(BigDuckTasks());
+void main() => runApp(
+  MaterialApp(
+    theme: ThemeData.dark(),
+    initialRoute: '/',
+    routes:{
+      '/': (context) => BigDuckTasks(),
+      '/done': (context) => DoneTasksScreen(),
+    }
+  )
+);
 
 class BigDuckTasks extends StatefulWidget {
   @override
@@ -31,9 +40,7 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(),
-        home: Builder(
+    return Builder(
           builder: (context) => Center(
             child: DefaultTabController(
               length: 5,
@@ -78,16 +85,13 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                       ListTile(
                         title: Text("Bin"),
                         onTap: (){
-
+                          Navigator.pushNamed(context, '/bin');
                         },
                       ),
                       ListTile(
                         title: Text("Done tasks"),
-                        onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => DoneTasksScreen(color: this.color)),
-                          );
+                        onTap: () async {
+                          await Navigator.pushNamed(context, '/done');
                           Navigator.pop(context);
                         },
                       ),
@@ -117,22 +121,21 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                   ],
                 ),
                 floatingActionButton: FloatingActionButton(onPressed: () {
-                  /*
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => NewTask(color: this.color)),
-                  );*/
-                  Navigator.push(
+                  );
+                 /* Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => DoneTasksScreen(color: this.color)),
-                  );
+                  );*/
                 },
                   child: Icon(Icons.add,), backgroundColor: this.color),
               ),
             ),
           ),
-        )
-    );
+        );
   }
 }
 
