@@ -73,7 +73,8 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                   child: ListView(
                     children: <Widget>[
                       DrawerHeader(
-                        child: Text("Menu"),
+                        child: Center(child: Column(children: <Widget>[
+                          Image.asset('assets/BigDuckSimple.png', height: 100, ), Text("BigDuck To-do",textAlign: TextAlign.right, style: TextStyle(fontSize: 24, color: Colors.black),)],)),
                         decoration: BoxDecoration(
                           color: colors[index],
                         ),
