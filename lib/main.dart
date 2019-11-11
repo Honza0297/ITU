@@ -48,7 +48,8 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
               child: Scaffold(
                 drawerEdgeDragWidth: 0.0,
                 appBar: AppBar(
-                  leading: Image.asset('assets/BigDuckSimple.png'),
+                  leading: Container(child: Image.asset('assets/BigDuckSimple.png',),
+                    margin: new EdgeInsets.all(10), color: Colors.transparent ) ,
                   bottom: TabBar(
                     onTap: (index){
                       setState(() {
@@ -120,7 +121,7 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                     AsapTab(),
                     Text("Calendar"),
                     MaybeTab(),
-                    Icon(Icons.directions_car),
+                    Icon(Icons.table_chart),
                   ],
                 ),
                 floatingActionButton: FloatingActionButton(onPressed: () {
