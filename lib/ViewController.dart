@@ -18,7 +18,7 @@ class ViewController
   var todoView = new TodoView();
   var asapView = new AsapView();
   var maybeView = new MaybeView();
-  var doneView;// = new DoneTasksView();
+  var byStateView;
 
   void Refresh(String typeOrState)
   {
@@ -26,7 +26,7 @@ class ViewController
     {
       case States.done:
       case States.deleted:
-        doneView.refresh();
+        byStateView.refresh();
         break;
       case Types.todo:
         todoView.refresh();
@@ -59,10 +59,10 @@ class ViewController
     return maybeView;
   }
 
-  ByStateTasksView NewDoneTaskView(String state)
+  ByStateTasksView NewByStateTasksView(String state)
   {
-    doneView = new ByStateTasksView(state);
-    return doneView;
+    byStateView = new ByStateTasksView(state);
+    return byStateView;
   }
 
 }

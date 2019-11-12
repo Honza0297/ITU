@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:itu/AboutScreen.dart';
 import 'package:itu/Asap.dart';
 import 'package:itu/Enums.dart';
 import 'package:itu/Maybe.dart';
@@ -25,6 +26,7 @@ void main() => runApp(
       '/': (context) => BigDuckTasks(),
       '/done': (context) => TasksByStateScreen(States.done),
       '/bin': (context) => TasksByStateScreen(States.deleted),
+      '/about': (context) => AboutScreen(),
     }
   )
 );
@@ -108,8 +110,9 @@ class _BigDuckTasksState extends State<BigDuckTasks> {
                       ),
                       ListTile(
                         title: Text("About BigDuck Tasks"),
-                        onTap: (){
-
+                        onTap: () async {
+                          await Navigator.pushNamed(context, '/about');
+                          Navigator.pop(context);
                         },
                       ),
                     ],

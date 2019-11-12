@@ -110,7 +110,7 @@ class TaskBox extends StatelessWidget {
                     else
                       {
                         controller.KillTask(this.id);
-                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task marked deleted permanently.")));
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Task deleted permanently.")));
                         viewController.Refresh(States.deleted);
                         viewController.Refresh(States.done);
                       }

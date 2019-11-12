@@ -70,9 +70,15 @@ class Controller{
 
   void RemoveTask(int id)
   {
-    //NOTE: pokud chceme kos, zde nastavit state na deleted
     taskBoxes.where((item) => item.id == id).first.task.state = States.deleted;
-    //taskBoxes.removeWhere((item) => item.id == id);
+  }
+
+  /**
+   * Deletes all tasks with state or type == stateOrType
+   */
+  void DeleteAll(String stateOrType)
+  {
+    taskBoxes.removeWhere((item) => item.task.type == stateOrType || item.task.state == stateOrType);
   }
 
   List<TaskBox> GetList(String type)
