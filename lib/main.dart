@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:itu/AboutScreen.dart';
@@ -14,7 +15,7 @@ import 'Maybe.dart';
 import 'NewTask.dart';
 import 'TasksByStateScreen.dart';
 
-int global_id= 0;
+
 Controller controller = new Controller();
 var viewController = new ViewController();
 
@@ -36,13 +37,38 @@ class BigDuckTasks extends StatefulWidget {
   _BigDuckTasksState createState() => _BigDuckTasksState();
 }
 
-class _BigDuckTasksState extends State<BigDuckTasks> {
+class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver {
+  AppLifecycleState _lastLifecycleState; //to know when app is paused
+
   Color color = colors[0];
   Text text = texts[0];
   int index = 0;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    setState(() {
+      _lastLifecycleState = state;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if(_lastLifecycleState == AppLifecycleState.paused || _lastLifecycleState == AppLifecycleState.inactive || _lastLifecycleState == AppLifecycleState.suspending  )
+      {
+        controller.saveData();
+      }
     return Builder(
           builder: (context) => Center(
             child: DefaultTabController(
