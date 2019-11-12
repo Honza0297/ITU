@@ -33,7 +33,16 @@ class _TasksByStateScreenState extends State<TasksByStateScreen> {
       appBar: AppBar(
         backgroundColor: this.widget.col,
         title: Text(state == States.done ? "Done tasks" : "Bin"),
-        //automaticallyImplyLeading: false, //asi nepotrebne
+        actions: <Widget>[
+          FlatButton(
+              child: Text(state == States.done ? " Empty done tasks" : "Empty bin"),
+              onPressed: (){
+                setState(() {
+                  showAlertDialog(context, state);
+                });
+              },
+          ),
+        ],
         leading:  IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white,),
           onPressed: (){
@@ -44,4 +53,41 @@ class _TasksByStateScreenState extends State<TasksByStateScreen> {
       body: ByStateTasks(state: state),
     );
   }
+}
+
+void showAlertDialog(BuildContext context, String state) {
+
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text("Delete"),
+    onPressed:  () {
+      controller.DeleteAll(state);
+      viewController.Refresh(state);
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text(state == States.done ? "Empty done tasks" : "Empty bin"),
+    content: Text(state == States.done ? "Do you really want to permanently delete all tasks marked as done?" : "Do you really want to permanently delete all tasks from bin?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

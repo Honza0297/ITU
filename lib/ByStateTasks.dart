@@ -15,7 +15,7 @@ class ByStateTasks extends StatefulWidget{
 
   final String state;
   @override
-  ByStateTasksView createState() => viewController.NewDoneTaskView(state);
+  ByStateTasksView createState() => viewController.NewByStateTasksView(state);
 }
 
 class ByStateTasksView extends State<ByStateTasks>{
