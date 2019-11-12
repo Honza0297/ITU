@@ -137,6 +137,8 @@ class TaskBox extends StatelessWidget {
   }
 
   getNiceDate(DateTime date) {
+    String sd = date.toIso8601String();
+    date = DateTime.parse(sd);
     return date.day.toString() +
         "-" + date.month.toString() +
         "-" + date.year.toString() +
