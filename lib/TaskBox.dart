@@ -24,7 +24,7 @@ class TaskBox extends StatelessWidget {
           child: Slidable(
             key: Key((this.id).toString()),
             actionPane: SlidableDrawerActionPane(),
-            actionExtentRatio: 0.25,
+            actionExtentRatio: 0,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -78,6 +78,10 @@ class TaskBox extends StatelessWidget {
               ),
             ],
             dismissal: SlidableDismissal(
+              dismissThresholds: <SlideActionType, double>{
+                SlideActionType.primary : 0.3,
+                SlideActionType.secondary: 0.3
+              },
               child: SlidableDrawerDismissal(),
               onDismissed: (action){
                 switch(action)
