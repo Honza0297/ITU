@@ -131,7 +131,9 @@ class _NewTaskState extends State<NewTask> {
                   );
                 },
               );
-              lastPickedTime = await showTimePicker(
+              if(date == null)
+                return;
+              var $time = await showTimePicker(
                 context: context,
                 initialTime: lastPickedTime,
                 builder: (BuildContext context, Widget child) {
@@ -144,6 +146,9 @@ class _NewTaskState extends State<NewTask> {
                   );
                   }
               );
+              if($time == null)
+                return;
+              lastPickedTime = $time;
               dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
               dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
             },
