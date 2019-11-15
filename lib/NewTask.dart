@@ -300,18 +300,21 @@ class MyButton extends StatelessWidget {
 
 
   final String text;
-  final EdgeInsets myPadding = EdgeInsets.all(6.0);
+  final EdgeInsets myPadding = EdgeInsets.all(5.0);
   final Color color;
   final IconData icon;
 
   Widget build(BuildContext context) {
-    return Padding(
-      padding: myPadding,
-      child: Column(
-          children: <Widget>[
-            Icon(icon, color: color, ),
-            Text(text, ),//style: TextStyle(color: color)),
-          ]),
+    return Container(
+      width: (MediaQuery.of(context).size.width - 50)/4,
+      child: Padding(
+        padding: myPadding,
+        child: Column(
+            children: <Widget>[
+              Icon(icon, color: color, ),
+              Text(text, ),//style: TextStyle(color: color)),
+            ]),
+      ),
     );
   }
 }
