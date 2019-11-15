@@ -15,9 +15,6 @@ import 'Enums.dart';
 TimeOfDay lastPickedTime = TimeOfDay.fromDateTime(DateTime.utc(2019, 1,1,15,0));
 
 class TypeData {
-
-  //TypeData(this.type);
-
   String type = Types.todo;
 }
 
@@ -173,13 +170,10 @@ class _NewTaskState extends State<NewTask> {
                         return;
 
                       lastPickedTime = $time;
-
                       setState(() {
                         dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
                       });
-
                       dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
-
                     },
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -209,14 +203,6 @@ class MyToggleButtons extends StatefulWidget{
   MyToggleButtons(this.type);
   TypeData type;
 
- /* MyToggleButtonsState state = MyToggleButtonsState();
-
-  MyToggleButtonsState GetState()
-  {
-    state = MyToggleButtonsState();
-    return state;
-  }
-*/
   @override
   MyToggleButtonsState createState() => MyToggleButtonsState(type);
 }
@@ -248,9 +234,9 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
 
   @override
   Widget build(BuildContext context){
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(1, 3, 0, 8),
         child: ToggleButtons(
           children: <Widget>[
             MyButton(
@@ -305,16 +291,13 @@ class MyButton extends StatelessWidget {
   final IconData icon;
 
   Widget build(BuildContext context) {
-    return Container(
-      width: (MediaQuery.of(context).size.width - 50)/4,
-      child: Padding(
-        padding: myPadding,
-        child: Column(
-            children: <Widget>[
-              Icon(icon, color: color, ),
-              Text(text, ),//style: TextStyle(color: color)),
-            ]),
-      ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 2, 0, 4),
+      child: Column(
+          children: <Widget>[
+            Icon(icon, color: color, ),
+            Text(text, ),//style: TextStyle(color: color)),
+          ]),
     );
   }
 }
