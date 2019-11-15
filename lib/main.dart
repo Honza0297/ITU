@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:itu/AboutScreen.dart';
 import 'package:itu/Asap.dart';
+import 'package:itu/DetailTaskScreen.dart';
 import 'package:itu/Enums.dart';
 import 'package:itu/Maybe.dart';
 import 'Controller.dart';
@@ -28,6 +29,7 @@ void main() => runApp(
       '/done': (context) => TasksByStateScreen(States.done),
       '/bin': (context) => TasksByStateScreen(States.deleted),
       '/about': (context) => AboutScreen(),
+      '/details': (context) => DetailTaskScreen(),
     }
   )
 );
@@ -109,8 +111,8 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                       ),
                       ListTile(
                         title: Text("Statistics"),
-                        onTap: (){
-
+                        onTap: () async {
+                          await Navigator.pushNamed(context, '/details');
                         },
                       ),
                       ListTile(
