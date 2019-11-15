@@ -46,6 +46,18 @@ class _NewTaskState extends State<NewTask> {
   MyToggleButtons buttons = MyToggleButtons(NewTask.typeClass);
 
   @override
+  void initState(){
+    dateTimeNotification = null;
+  }
+
+  RemoveReminder() {
+    setState(() {
+      dateTimeNotification = null;
+      dtPickerController.text = "";
+    });
+  }
+
+  @override
   void dispose(){
     dtPickerController.dispose();
     super.dispose();
@@ -123,7 +135,6 @@ class _NewTaskState extends State<NewTask> {
           ),
           Padding(
             padding: myPadding,
-
             child: Row(
               children: <Widget>[
                 Flexible(
@@ -162,7 +173,11 @@ class _NewTaskState extends State<NewTask> {
                         return;
 
                       lastPickedTime = $time;
-                      dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
+
+                      setState(() {
+                        dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
+                      });
+
                       dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
 
                     },
@@ -172,23 +187,19 @@ class _NewTaskState extends State<NewTask> {
                     ),
                   ),
                 ),
-                RaisedButton(
-                  child: Text("Remove"),
-                  onPressed: (){
-                    dateTimeNotification = null;
-                  },
-                )
+                dateTimeNotification != null ? Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 1, 1),
+                  child: IconButton(
+                    icon: new Icon(Icons.delete),
+                    onPressed: () => RemoveReminder(),
+                  ),
+                ) : Container(),//just an empty widget (null is not working)
               ],
             ),
           ),
         ],
       ),
     );
-  }
-
-  RemoveReminder() {
-    setState(() {
-    });
   }
 }
 
