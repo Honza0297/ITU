@@ -130,41 +130,40 @@ class _NewTaskState extends State<NewTask> {
                   child: TextField(
                     controller: dtPickerController,
                     onTap: () async {
-                      setState(() async {
-                        DateTime now = DateTime.now();
-                        DateTime date = await showDatePicker(
+                      DateTime now = DateTime.now();
+                      DateTime date = await showDatePicker(
+                        context: context,
+                        firstDate: now,
+                        initialDate: now,
+                        lastDate: DateTime(2030),
+                        builder: (BuildContext context, Widget child) {
+                          return Theme(
+                            data: ThemeData.dark(),
+                            child: child,
+                          );
+                        },
+                      );
+                      if(date == null)
+                        return;
+                      var $time = await showTimePicker(
                           context: context,
-                          firstDate: now,
-                          initialDate: now,
-                          lastDate: DateTime(2030),
+                          initialTime: lastPickedTime,
                           builder: (BuildContext context, Widget child) {
-                            return Theme(
-                              data: ThemeData.dark(),
-                              child: child,
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                              child: Theme(
+                                data: ThemeData.dark(),
+                                child: child,
+                              ),
                             );
-                          },
-                        );
-                        if(date == null)
-                          return;
-                        var $time = await showTimePicker(
-                            context: context,
-                            initialTime: lastPickedTime,
-                            builder: (BuildContext context, Widget child) {
-                              return MediaQuery(
-                                data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                                child: Theme(
-                                  data: ThemeData.dark(),
-                                  child: child,
-                                ),
-                              );
-                            }
-                        );
-                        if($time == null)
-                          return;
-                        lastPickedTime = $time;
-                        dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
-                        dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
-                      });
+                          }
+                      );
+                      if($time == null)
+                        return;
+
+                      lastPickedTime = $time;
+                      dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
+                      dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
 
                     },
                     decoration: InputDecoration(
@@ -175,8 +174,9 @@ class _NewTaskState extends State<NewTask> {
                 ),
                 RaisedButton(
                   child: Text("Remove"),
-
-                  onPressed: dateTimeNotification == null ? null : RemoveReminder(),
+                  onPressed: (){
+                    dateTimeNotification = null;
+                  },
                 )
               ],
             ),
@@ -188,7 +188,6 @@ class _NewTaskState extends State<NewTask> {
 
   RemoveReminder() {
     setState(() {
-      dateTimeNotification = null;
     });
   }
 }
