@@ -15,9 +15,6 @@ import 'Enums.dart';
 TimeOfDay lastPickedTime = TimeOfDay.fromDateTime(DateTime.utc(2019, 1,1,15,0));
 
 class TypeData {
-
-  //TypeData(this.type);
-
   String type = Types.todo;
 }
 
@@ -41,9 +38,21 @@ class _NewTaskState extends State<NewTask> {
 
   final double buttonHeight = 60;
 
-  final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
+  final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 1, 1, 3);
 
   MyToggleButtons buttons = MyToggleButtons(NewTask.typeClass);
+
+  @override
+  void initState(){
+    dateTimeNotification = null;
+  }
+
+  RemoveReminder() {
+    setState(() {
+      dateTimeNotification = null;
+      dtPickerController.text = "";
+    });
+  }
 
   @override
   void dispose(){
@@ -98,63 +107,88 @@ class _NewTaskState extends State<NewTask> {
         padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
         children: <Widget>[
           buttons,
-          TextField(
-            autofocus: true,
-            onChanged: (String str){title = str;},
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Title"
+          Padding(
+            padding: myPadding,
+            child: TextField(
+              autofocus: true,
+              onChanged: (String str){title = str;},
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Title"
+              ),
             ),
           ),
-          TextField(
-            onChanged: (String str){text = str;},
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Text"
+          Padding(
+            padding: myPadding,
+            child: TextField(
+              onChanged: (String str){text = str;},
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Text"
+              ),
             ),
           ),
-          TextField(
-            controller: dtPickerController,
-            onTap: () async {
-              DateTime now = DateTime.now();
-              DateTime date = await showDatePicker(
-                context: context,
-                firstDate: now,
-                initialDate: now,
-                lastDate: DateTime(2030),
-                builder: (BuildContext context, Widget child) {
-                  return Theme(
-                    data: ThemeData.dark(),
-                    child: child,
-                  );
-                },
-              );
-              if(date == null)
-                return;
-              var $time = await showTimePicker(
-                context: context,
-                initialTime: lastPickedTime,
-                builder: (BuildContext context, Widget child) {
-                  return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                    child: Theme(
-                      data: ThemeData.dark(),
-                      child: child,
+          Padding(
+            padding: myPadding,
+            child: Row(
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    controller: dtPickerController,
+                    onTap: () async {
+                      DateTime now = DateTime.now();
+                      DateTime date = await showDatePicker(
+                        context: context,
+                        firstDate: now,
+                        initialDate: now,
+                        lastDate: DateTime(2030),
+                        builder: (BuildContext context, Widget child) {
+                          return Theme(
+                            data: ThemeData.dark(),
+                            child: child,
+                          );
+                        },
+                      );
+                      if(date == null)
+                        return;
+                      var $time = await showTimePicker(
+                          context: context,
+                          initialTime: lastPickedTime,
+                          builder: (BuildContext context, Widget child) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                              child: Theme(
+                                data: ThemeData.dark(),
+                                child: child,
+                              ),
+                            );
+                          }
+                      );
+                      if($time == null)
+                        return;
+
+                      lastPickedTime = $time;
+                      setState(() {
+                        dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
+                      });
+                      dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
+                    },
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Add reminder"
                     ),
-                  );
-                  }
-              );
-              if($time == null)
-                return;
-              lastPickedTime = $time;
-              dateTimeNotification = DateTime(date.year, date.month, date.day, lastPickedTime.hour, lastPickedTime.minute);
-              dtPickerController.text = DateFormat('dd. MM. yyyy - kk:mm').format(dateTimeNotification);
-            },
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Add reminder"
+                  ),
+                ),
+                dateTimeNotification != null ? Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 1, 1),
+                  child: IconButton(
+                    icon: new Icon(Icons.delete),
+                    onPressed: () => RemoveReminder(),
+                  ),
+                ) : Container(),//just an empty widget (null is not working)
+              ],
             ),
           ),
         ],
@@ -169,14 +203,6 @@ class MyToggleButtons extends StatefulWidget{
   MyToggleButtons(this.type);
   TypeData type;
 
- /* MyToggleButtonsState state = MyToggleButtonsState();
-
-  MyToggleButtonsState GetState()
-  {
-    state = MyToggleButtonsState();
-    return state;
-  }
-*/
   @override
   MyToggleButtonsState createState() => MyToggleButtonsState(type);
 }
@@ -208,18 +234,31 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
 
   @override
   Widget build(BuildContext context){
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(1, 3, 0, 8),
         child: ToggleButtons(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: Icon(Icons.format_align_left, color: colors[0], ),
+            MyButton(
+              text: "Todo",
+              color: colors[0],
+              icon: Icons.format_align_left,
             ),
-            Icon(Icons.priority_high, color: colors[1] ),
-            Icon(Icons.not_listed_location, color: colors[3] ),
-            Icon(Icons.table_chart, color: colors[4] )
+            MyButton(
+              text: "Asap",
+              color: colors[1],
+              icon: Icons.priority_high,
+            ),
+            MyButton(
+              text: "Maybe",
+              color: colors[3],
+              icon: Icons.not_listed_location,
+            ),
+            MyButton(
+              text: "Project",
+              color: colors[4],
+              icon: Icons.table_chart,
+            ),
           ],
           onPressed: (int index) {
             setState(() {
@@ -238,31 +277,27 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
       ),
     );
   }
-
-
 }
 
 
 class MyButton extends StatelessWidget {
-  MyButton({Key key, this.text}) :
+  MyButton({Key key, this.text, this.color, this.icon}) :
         super(key: key);
 
 
   final String text;
-  final double height = 60;
-  final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
-
+  final EdgeInsets myPadding = EdgeInsets.all(5.0);
+  final Color color;
+  final IconData icon;
 
   Widget build(BuildContext context) {
-    return ButtonTheme(
-      height: height,
-      child: Padding(
-        padding: myPadding,
-        child: RaisedButton(
-          onPressed: (){},
-          child: Text("text"),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 2, 0, 4),
+      child: Column(
+          children: <Widget>[
+            Icon(icon, color: color, ),
+            Text(text, ),//style: TextStyle(color: color)),
+          ]),
     );
   }
 }
