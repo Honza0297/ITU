@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:itu/Task.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
 import 'Todo.dart';
