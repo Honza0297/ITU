@@ -160,7 +160,7 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => NewTask(color: this.color)),
+                    MaterialPageRoute(builder: (context) => NewTask(index: index)),
                   );
                  /* Navigator.push(
                     context,

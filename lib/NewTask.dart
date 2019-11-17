@@ -11,20 +11,36 @@ import 'main.dart';
 import 'Enums.dart';
 
 
-
+String newTaskType;
 TimeOfDay lastPickedTime = TimeOfDay.fromDateTime(DateTime.utc(2019, 1,1,15,0));
 
 class TypeData {
-  String type = Types.todo;
+  TypeData(String type){
+    this.type = type;
+  }
+
+  String type;
 }
 
+
 class NewTask extends StatefulWidget {
-  NewTask({Key key, Color color}): super(key: key){
-    this.col = color;
+  NewTask({Key key, int index}): super(key: key){
+    switch(index){
+      case 0:
+        newTaskType = Types.todo;
+        break;
+      case 1:
+        newTaskType = Types.asap;
+        break;
+      case 3:
+        newTaskType = Types.maybe;
+        break;
+        //todo project type
+    }
   }
   Color col;
-
-  static TypeData typeClass = new TypeData();
+  //String type;
+  //static TypeData typeClass = new TypeData(type);
 
   @override
   _NewTaskState createState() => _NewTaskState();
@@ -40,7 +56,8 @@ class _NewTaskState extends State<NewTask> {
 
   final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 1, 1, 3);
 
-  MyToggleButtons buttons = MyToggleButtons(NewTask.typeClass);
+  MyToggleButtons buttons = MyToggleButtons();
+
 
   @override
   void initState(){
@@ -89,10 +106,10 @@ class _NewTaskState extends State<NewTask> {
               }
               else
               {
-                controller.AddTask(new Task(title: title, description: text, type: NewTask.typeClass.type, date: dateTimeNotification));
+                controller.AddTask(new Task(title: title, description: text, type: newTaskType, date: dateTimeNotification));
                 try
                 {
-                  viewController.Refresh(NewTask.typeClass.type);
+                  viewController.Refresh(newTaskType);
                 }
                 catch(e) {
               }
@@ -200,18 +217,11 @@ class _NewTaskState extends State<NewTask> {
 
 class MyToggleButtons extends StatefulWidget{
 
-  MyToggleButtons(this.type);
-  TypeData type;
-
   @override
-  MyToggleButtonsState createState() => MyToggleButtonsState(type);
+  MyToggleButtonsState createState() => MyToggleButtonsState();
 }
 
 class MyToggleButtonsState extends State<MyToggleButtons>{
-  MyToggleButtonsState(this.type){
-    type.type = Types.todo;
-  }
-  TypeData type;
   List<bool> isSelected;
   final EdgeInsets myPadding = EdgeInsets.fromLTRB(1, 5, 1, 10);
   final double height = 60;
@@ -219,17 +229,27 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
 
   @override
   void initState(){
-    isSelected = [true, false, false, false];
+    isSelected = [false, false, false, false];
+    if(newTaskType == Types.todo)
+      isSelected[0] = true;
+    else if(newTaskType == Types.asap)
+      isSelected[1] = true;
+    else if(newTaskType == Types.maybe)
+      isSelected[2] = true;
+    else
+      isSelected[3] = true;
     super.initState();
   }
 
   String GetType(){
+    String type;
     if(isSelected[0] == true)
-      return Types.todo;
+      type = Types.todo;
     else if(isSelected[1] == true)
-      return Types.asap;
+      type = Types.asap;
     else
-      return Types.maybe;
+      type = Types.maybe;
+    newTaskType = type;
   }
 
   @override
@@ -269,7 +289,7 @@ class MyToggleButtonsState extends State<MyToggleButtons>{
                   isSelected[buttonIndex] = false;
                 }
               }
-              type.type = GetType();
+              GetType();
             });
           },
           isSelected: isSelected,
