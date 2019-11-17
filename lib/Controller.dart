@@ -137,7 +137,9 @@ class Controller{
 
   List<TaskBox> GetList(String type)
   {
-    return taskBoxes.where((item) => item.task.type == type && item.task.state == States.active).toList();
+    var ret = taskBoxes.where((item) => item.task.type == type && item.task.state == States.active).toList();
+    ret.sort((a, b) => b.id.compareTo(a.id));
+    return ret;
   }
 
   List<TaskBox> GetListByState(String state)
