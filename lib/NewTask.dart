@@ -143,7 +143,7 @@ class _NewTaskState extends State<NewTask> {
               maxLines: null,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: "Text"
+                  labelText: "Description"
               ),
             ),
           ),
