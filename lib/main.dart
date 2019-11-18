@@ -111,20 +111,22 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                       ),
                       ListTile(
                         title: Text("Statistics"),
+                        leading: Icon(Icons.trending_up),
                         onTap: () async {
                           await Navigator.pushNamed(context, '/details');
                         },
                       ),
                       ListTile(
                         title: Text("Bin"),
+                        leading: Icon(Icons.delete),
                         onTap: () async {
                           await Navigator.pushNamed(context, '/bin');
                           Navigator.pop(context);
-
                         },
                       ),
                       ListTile(
                         title: Text("Done tasks"),
+                        leading: Icon(Icons.done),
                         onTap: () async {
                           await Navigator.pushNamed(context, '/done');
                           Navigator.pop(context);
@@ -133,11 +135,11 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                       ListTile(
                         title: Text("Settings"),
                         onTap: (){
-
                         },
                       ),
                       ListTile(
                         title: Text("About BigDuck Tasks"),
+                        leading: Image.asset('assets/BigDuckSimple.png', height: 30, ),
                         onTap: () async {
                           await Navigator.pushNamed(context, '/about');
                           Navigator.pop(context);
