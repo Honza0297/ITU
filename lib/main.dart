@@ -132,11 +132,12 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                           Navigator.pop(context);
                         },
                       ),
+                      /*
                       ListTile(
                         title: Text("Settings"),
                         onTap: (){
                         },
-                      ),
+                      ),*/
                       ListTile(
                         title: Text("About BigDuck Tasks"),
                         leading: Image.asset('assets/BigDuckSimple.png', height: 30, ),
