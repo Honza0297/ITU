@@ -126,7 +126,7 @@ class Controller{
    */
   void DeleteAll(String stateOrType)
   {
-    List<TaskBox> toKill = taskBoxes.where((item) => item.task.type == stateOrType || item.task.state == stateOrType);
+    var toKill = taskBoxes.where((item) => item.task.type == stateOrType || item.task.state == stateOrType);
     for(var item in toKill)
       {
         RemoveFromPersistent(item.id);
