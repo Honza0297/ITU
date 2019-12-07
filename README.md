@@ -1,6 +1,8 @@
-# itu
+Authors: Jan Beran, Daniel Bubeníček, Jan Carba (see the file header for more specific info)
 
-A new Flutter application.
+# How to get things working:
+* Download Android Studio and install Flutter plugin (Great manual from 
+
 
 ## Getting Started
 
