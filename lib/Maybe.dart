@@ -1,3 +1,8 @@
+/**
+ * Projekt do predmetu ITU na FIT VUT v Brne - tym xberan43, xbuben05, xcarba00
+ * Autori tohoto souboru: Jan Beran (xberan43) - tabBar a vetsina ostatniho
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
