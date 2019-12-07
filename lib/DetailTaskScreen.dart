@@ -1,3 +1,9 @@
+/**
+ * Projekt do predmetu ITU na FIT VUT v Brne - tym xberan43, xbuben05, xcarba00
+ * Autori tohoto souboru: Jan Beran (xberan43)
+ * Soubor vychazi z NewTask.dart, jehoz autorem je xbuben05
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
