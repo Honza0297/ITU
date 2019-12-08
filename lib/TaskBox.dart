@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -108,28 +110,14 @@ class TaskBox extends StatelessWidget {
                       else
                       {
                         controller.MarkDone(this.id);
-                        if (numberOfFinished == 1) {
-                          return showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content: Text(
-                                      "Congratulations! you successfully finished your first task!"),
-                                );
-                              }
-                          );
-                        } else if ((numberOfFinished%5) == 0) {
-                          return showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content: Text(
-                                      "Congratulations! you successfully finished your "+numberOfFinished.toString()+". task!"),
-                                );
-                              }
-                          );
-                        }
                         Scaffold.of(context).showSnackBar(SnackBar(duration: Duration(milliseconds: 500), content: Text("Task marked as Done.")));
+                        if (numberOfFinished == 1) {
+                          Scaffold.of(context).showSnackBar(SnackBar(duration: Duration(milliseconds: 1500), content: Text("Congratulations, you successfully finished your first task!")));
+
+                        } else if ((numberOfFinished%5) == 0) {
+                          Scaffold.of(context).showSnackBar(SnackBar(duration: Duration(milliseconds: 1500), content: Text("Congratulations, you successfully finished " + numberOfFinished.toString() + " tasks!")));
+
+                        }
                       }
                       break;
                     case SlideActionType.secondary:
