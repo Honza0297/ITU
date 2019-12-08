@@ -12,6 +12,9 @@ import 'Enums.dart';
 import 'main.dart';
 import 'TaskBox.dart';
 
+int numberOfFinished = 0;
+int numberOfDeleted = 0;
+
 class Controller{
   List<TaskBox> taskBoxes = new List<TaskBox>();
   List<ProjectBox> projectBoxes = new List<ProjectBox>();
@@ -100,6 +103,7 @@ class Controller{
 
   void MarkDone(int id)
   {
+    numberOfFinished++;
     taskBoxes.where((item) => item.id == id).first.task.state = States.done;
   }
 
@@ -120,6 +124,7 @@ class Controller{
 
   void RemoveTask(int id)
   {
+    numberOfDeleted++;
     taskBoxes.where((item) => item.id == id).first.task.state = States.deleted;
   }
 
@@ -132,6 +137,7 @@ class Controller{
     var toKill = taskBoxes.where((item) => item.task.type == stateOrType || item.task.state == stateOrType);
     for(var item in toKill)
       {
+        numberOfDeleted++;
         RemoveFromPersistent(item.id);
       }
 

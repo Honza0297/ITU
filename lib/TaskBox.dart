@@ -108,6 +108,27 @@ class TaskBox extends StatelessWidget {
                       else
                       {
                         controller.MarkDone(this.id);
+                        if (numberOfFinished == 1) {
+                          return showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text(
+                                      "Congratulations! you successfully finished your first task!"),
+                                );
+                              }
+                          );
+                        } else if ((numberOfFinished%5) == 0) {
+                          return showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text(
+                                      "Congratulations! you successfully finished your "+numberOfFinished.toString()+". task!"),
+                                );
+                              }
+                          );
+                        }
                         Scaffold.of(context).showSnackBar(SnackBar(duration: Duration(milliseconds: 500), content: Text("Task marked as Done.")));
                       }
                       break;

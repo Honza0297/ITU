@@ -1,3 +1,5 @@
+import 'dart:ui' as prefix0;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +25,7 @@ class ProjectBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(2),
-      height: 400,
+      height: 120,
       child: GestureDetector(
         onTap: () async {
           await Navigator.push(context, MaterialPageRoute(builder: (context) => DetailProjectScreen(project: project,id: id,)));
@@ -47,6 +49,7 @@ class ProjectBox extends StatelessWidget {
                     Expanded(
                       child: Text(this.project.title,
                       style: TextStyle(fontWeight: FontWeight.bold),
+
                       )
                     ,)
                   ],
