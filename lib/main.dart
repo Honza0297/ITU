@@ -121,13 +121,6 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                         ),
                       ),
                       ListTile(
-                        title: Text("Statistics"),
-                        leading: Icon(Icons.trending_up),
-                        onTap: () async {
-                          await Navigator.pushNamed(context, '/details');
-                        },
-                      ),
-                      ListTile(
                         title: Text("Bin"),
                         leading: Icon(Icons.delete),
                         onTap: () async {
@@ -143,12 +136,6 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                           Navigator.pop(context);
                         },
                       ),
-                      /*
-                      ListTile(
-                        title: Text("Settings"),
-                        onTap: (){
-                        },
-                      ),*/
                       ListTile(
                         title: Text("About BigDuck Tasks"),
                         leading: Image.asset('assets/BigDuckSimple.png', height: 30, ),
@@ -183,10 +170,6 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                           builder: (context) => NewTask(index: index)),
                     );
                   }
-                 /* Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => DoneTasksScreen(color: this.color)),
-                  );*/
                 },
                   child: Icon(Icons.add,), backgroundColor: this.color),
               ),
