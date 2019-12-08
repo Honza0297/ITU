@@ -1,8 +1,12 @@
-Authors: Jan Beran, Daniel Bubeníček, Jan Carba (see the file header for more specific info)
+Authors: Jan Beran, Daniel Bubeníček, Jan Carba (see the file headers for more specific info)
 
 # How to get things working:
-* Download Android Studio and install Flutter plugin (Great manual from 
-
+There are two ways; first is fast and easy, but the second one alows you to use files which were in the archive (.
+* Download Android Studio and install Flutter plugin (There is great tutorial by FLutter: https://flutter.dev/docs/get-started/install)
+* Clone git repository: https://github.com/Honza0297/ITU.git
+* Open it as a project in Android Studio
+* Get neccessary dependencies by clicking on "Get dependencies"
+* 
 
 ## Getting Started
 
