@@ -104,7 +104,7 @@ class _NewTaskState extends State<NewTask> {
                     builder: (context) {
                       return AlertDialog(
                         content: Text(
-                            "You have to fill at least one of \"Title\" and \"Text\" fields!"),
+                            "You have to fill at least one of \"Title\" and \"Description\" fields!"),
                       );
                     }
                 );
