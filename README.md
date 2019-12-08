@@ -1,6 +1,7 @@
 [CZ]
 
-Projekt do predmětu ITU - Aplikace pro spravu ukolu metodou GTD
+Projekt do predmetu ITU - Aplikace pro spravu ukolu metodou GTD
+
 Autori: 
 * Jan Beran (xberan43)
 * Daniel Bubenicek (xbuben05)
