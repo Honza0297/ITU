@@ -13,7 +13,7 @@ class CalendarView extends State<CalendarTab>{
   Widget build(BuildContext context){
     return RaisedButton(
       onPressed: (){
-          DeviceApps.openApp('com.calendar.app');
+          DeviceApps.openApp('com.google.android.calendar');
       },
       color: Color.fromRGBO(50, 50, 50, 0),
       child: Text(

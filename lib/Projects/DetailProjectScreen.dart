@@ -23,25 +23,25 @@ class DetailProjectScreen extends StatefulWidget {
   int id;
   List<TaskBox> tasks;
   @override
-  _DetailProjectScreenState createState() => _DetailProjectScreenState();
+  DetailProjectScreenView createState() => DetailProjectScreenView();
 
 }
 
-class _DetailProjectScreenState extends State<DetailProjectScreen> {
-  _DetailProjectScreenState();
+class DetailProjectScreenView extends State<DetailProjectScreen> {
+  DetailProjectScreenView();
 
   Project project;
   int id;
-  List<TaskBox> tasks;
+  List<TaskBox> tasks = controller.GetTasksInProject(actualProject);
   
   @override
   void initState(){
-
+    viewController.AddProjectScreenView(this);
   }
 
   void refresh() {
     setState(() {
-      tasks = controller.GetTasksInProject(this.widget.project);
+      tasks = controller.GetTasksInProject(actualProject);
     });
   }
 
@@ -71,7 +71,7 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
         ],
       ),
       body: ListView(
-        children: controller.GetTasksInProject(this.widget.project),
+        children: tasks,
 
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {

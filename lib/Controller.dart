@@ -171,10 +171,11 @@ class Controller{
       task: task,
     );
     project.tasks.add(temp);
+    taskBoxes.add(temp);
     return;
   }
   List<TaskBox> GetTasksInProject(Project project) {
-    return project.tasks;
+    return project.tasks.where((item) => item.task.state == States.active).toList();
   }
 
   void AddTestTasksToProject(Project project) { //only for debug
