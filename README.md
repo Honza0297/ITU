@@ -8,7 +8,7 @@ Autori:
 * Jan Carba (xcarba00)
 
 Poznamky:
-* Doporucujeme spoustet na systemu Windows, podporovany jsou ovsem i linuxove systemy (zde se ovsem mohou vyskytnout problemy s Andorid Studiem)
+* Doporucujeme spoustet na systemu Windows, podporovany jsou ovsem i linuxove systemy (zde se ovsem mohou vyskytnout problemy s Android Studiem)
 * Krome autorskych souboru (ve slozce lib/) jsou odevzdany i soubory potrebne pro spravne otevreni v Android Studiu. Zprovozneni aplikace jen s pomoci zdrojovych kodu by bylo mnohem slozitejsi (neexistuje jednoduchy zpusob jak vytvorit projekt z jiz existujicich souboru) a nemohly by zde byt popsany vsechny potencialni problemy, ktere by mohly vzniknout. 
 
 # Postup zprovozneni
@@ -40,9 +40,9 @@ Notes:
 * Run the project by clicking "Run" or "Shift + F10"
 
 ## Using git repository (easy and fast):
-* Download Android Studio and install Flutter plugin (There is great tutorial by FLutter: https://flutter.dev/docs/get-started/install)
+* Download Android Studio and install Flutter plugin (There is great tutorial by Flutter: https://flutter.dev/docs/get-started/install)
 * Clone git repository: https://github.com/Honza0297/ITU.git
 * Open it as a project in Android Studio
-* Click on pubspec.yaml, In the top of the screeen, yellow bar shows up. Click on "Packages get" or similar (may be slightly different in various sstems and versions). 
+* Click on pubspec.yaml, In the top of the screeen, yellow bar shows up. Click on "Packages get" or similar (may be slightly different in various systems and versions). 
 * If you do not have any, make your virtual device: click on "AVD Manager" icon (close to "Run, Debug, Stop" buttons), create and run your virtual device
 * Then just Run the project
