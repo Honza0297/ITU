@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:itu/ByStateTasks.dart';
+import 'package:itu/Projects/DetailProjectScreen.dart';
+import 'package:itu/Projects/Project.dart';
+import 'package:itu/Projects/Projects.dart';
 import 'package:itu/TasksByStateScreen.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
@@ -23,6 +26,8 @@ class ViewController
   var todoView = new TodoView();
   var asapView = new AsapView();
   var maybeView = new MaybeView();
+  var projectView = new ProjectsView();
+  List<DetailProjectScreenView> detailProjectViews = new List<DetailProjectScreenView>();
   var byStateView;
 
   void Refresh(String typeOrState)
@@ -42,8 +47,21 @@ class ViewController
       case Types.maybe:
         maybeView.refresh();
         break;
+      case Types.project:
+        projectView.refresh();
+        break;
       default:
     }
+    for (int i = 0; i<detailProjectViews.length;i++) {
+      try {
+        detailProjectViews[i].refresh();
+      } catch(e) {}
+    }
+  }
+
+  void AddProjectScreenView(DetailProjectScreenView detailProjectScreenView) {
+    detailProjectViews.add(detailProjectScreenView);
+    return;
   }
 
   TodoView NewTodoView()
@@ -68,6 +86,11 @@ class ViewController
   {
     byStateView = new ByStateTasksView(state);
     return byStateView;
+  }
+
+  ProjectsView NewProjectsView() {
+    projectView = new ProjectsView();
+    return projectView;
   }
 
 }

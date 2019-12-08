@@ -11,6 +11,7 @@ class Types
   static const String todo = "todo";
   static const String asap = "asap";
   static const String maybe = "maybe";
+  static const String project = "project";
 }
 
 class States

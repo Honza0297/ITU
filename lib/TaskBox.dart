@@ -115,6 +115,13 @@ class TaskBox extends StatelessWidget {
                       {
                         controller.MarkDone(this.id);
                         Scaffold.of(context).showSnackBar(SnackBar(duration: Duration(milliseconds: 500), content: Text("Task marked as Done.")));
+                        if (numberOfFinished == 1) {
+                          Scaffold.of(context).showSnackBar(SnackBar(duration: Duration(milliseconds: 1500), content: Text("Congratulations, you successfully finished your first task!")));
+
+                        } else if ((numberOfFinished%5) == 0) {
+                          Scaffold.of(context).showSnackBar(SnackBar(duration: Duration(milliseconds: 1500), content: Text("Congratulations, you successfully finished " + numberOfFinished.toString() + " tasks!")));
+
+                        }
                       }
                       break;
                     case SlideActionType.secondary:
