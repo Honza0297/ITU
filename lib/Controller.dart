@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:itu/Projects/Project.dart';
+import 'package:itu/Projects/ProjectBox.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
@@ -12,6 +14,7 @@ import 'TaskBox.dart';
 
 class Controller{
   List<TaskBox> taskBoxes = new List<TaskBox>();
+  List<ProjectBox> projectBoxes = new List<ProjectBox>();
   static int global_id = 0;
 
   Controller()
@@ -135,6 +138,12 @@ class Controller{
     taskBoxes.removeWhere((item) => item.task.type == stateOrType || item.task.state == stateOrType);
   }
 
+  List<ProjectBox> GetListProjects() {
+    var ret = projectBoxes.where((item) => item.project.state == States.active).toList();
+    ret.sort((a,b) => b.id.compareTo(a.id));
+    return ret;
+  }
+
   List<TaskBox> GetList(String type)
   {
     var ret = taskBoxes.where((item) => item.task.type == type && item.task.state == States.active).toList();
@@ -147,7 +156,38 @@ class Controller{
     return taskBoxes.where((item) => item.task.state == state).toList();
   }
 
+  void AddProject(Project project) {
+    var temp =  new ProjectBox(
+      id: global_id++,
+      project: project,
+    );
+    AddTestTasksToProject(project);
+    projectBoxes.add(temp);
+  }
 
+  void AddTaskToProject(Task task, Project project) {
+    var temp =  new TaskBox(
+      id: global_id++,
+      task: task,
+    );
+    project.tasks.add(temp);
+    return;
+  }
+  List<TaskBox> GetTasksInProject(Project project) {
+    return project.tasks;
+  }
 
+  void AddTestTasksToProject(Project project) { //only for debug
+    AddTaskToProject(new Task(title: "test1"), project);
+    AddTaskToProject(new Task(title: "test2"), project);
+
+  }
+
+  List<ProjectBox> GetProjects() {
+    return projectBoxes;
+  }
+  List<Task> GetThreeUndoneTasksInProject(Project project) {
+    ge
+  }
 
 }

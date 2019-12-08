@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:itu/ByStateTasks.dart';
+import 'package:itu/Projects/Projects.dart';
 import 'package:itu/TasksByStateScreen.dart';
 import 'Controller.dart';
 import 'ViewController.dart';
@@ -18,6 +19,7 @@ class ViewController
   var todoView = new TodoView();
   var asapView = new AsapView();
   var maybeView = new MaybeView();
+  var projectView = new ProjectsView();
   var byStateView;
 
   void Refresh(String typeOrState)
@@ -36,6 +38,9 @@ class ViewController
         break;
       case Types.maybe:
         maybeView.refresh();
+        break;
+      case Types.project:
+        projectView.refresh();
         break;
       default:
     }
@@ -63,6 +68,11 @@ class ViewController
   {
     byStateView = new ByStateTasksView(state);
     return byStateView;
+  }
+
+  ProjectsView NewProjectsView() {
+    projectView = new ProjectsView();
+    return projectView;
   }
 
 }

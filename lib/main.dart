@@ -5,10 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:itu/AboutScreen.dart';
 import 'package:itu/Asap.dart';
+import 'package:itu/Callendar.dart';
 import 'package:itu/DetailTaskScreen.dart';
 import 'package:itu/Enums.dart';
 import 'package:itu/Maybe.dart';
+import 'package:itu/Projects/Projects.dart';
 import 'Controller.dart';
+import 'Projects/NewProject.dart';
 import 'ViewController.dart';
 import 'Todo.dart';
 import 'Asap.dart';
@@ -154,17 +157,24 @@ class _BigDuckTasksState extends State<BigDuckTasks> with WidgetsBindingObserver
                   children: [
                     TodoTab(),
                     AsapTab(),
-                    Text("Calendar"),
+                    CalendarTab(),
                     MaybeTab(),
-                    Icon(Icons.table_chart),
+                    ProjectsTab()
                   ],
                 ),
                 floatingActionButton: FloatingActionButton(onPressed: () {
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewTask(index: index)),
-                  );
+                  if (index == 4) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewProject(index: index)),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NewTask(index: index)),
+                    );
+                  }
                  /* Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => DoneTasksScreen(color: this.color)),
