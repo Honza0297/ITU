@@ -1,4 +1,5 @@
 [CZ]
+
 Projekt do predmětu ITU - Aplikace pro spravu ukolu metodou GTD
 Autori: 
 * Jan Beran (xberan43)
@@ -20,7 +21,9 @@ Poznamky:
 
 ####################################################################################
 [EN]
+
 Project for ITU, FIT BUT Brno
+
 Authors: Jan Beran, Daniel Bubeníček, Jan Carba (see the file headers for more specific info)
 
 Notes:
