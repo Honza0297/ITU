@@ -38,7 +38,7 @@ class _AboutScreenState extends State<AboutScreen> {
           },
         ),
       ),
-      body: Text("BigDuck Tasks/To-Do - thats the question. Great app for storing your tasks according to getting things done method with no persistent memory. By Berry, Denny and in the future maybe also Carbik."),
+      body: Text("BigDuck Tasks/To-Do - thats the question. Great app for storing your tasks according to getting things done method with no persistent memory. By Berry, Denny and in the future maybe also Carbik.\n\nExcuse me for coming that late, my name is Carbik, and finally I came like a Superman in the last minutes before deadline to save this me.\nMaybe I need something like this App more then anyone else"),
     );
   }
 }

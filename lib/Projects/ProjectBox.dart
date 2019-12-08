@@ -1,3 +1,8 @@
+/**
+ * Projekt do predmetu ITU na FIT VUT v Brne - tym xberan43, xbuben05, xcarba00
+ * Autori tohoto souboru: Jan Carba (xcarba00)
+ */
+
 import 'dart:ui' as prefix0;
 
 import 'package:flutter/cupertino.dart';
