@@ -13,10 +13,12 @@ import '../main.dart';
 import '../Enums.dart';
 import 'NewTaskInProject.dart';
 
+Project actualProject;
+
 class DetailProjectScreen extends StatefulWidget {
 
   DetailProjectScreen({this.project, this.id})
-  {}
+  {actualProject = this.project;}
   Project project;
   int id;
   List<TaskBox> tasks;

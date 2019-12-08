@@ -178,16 +178,16 @@ class Controller{
   }
 
   void AddTestTasksToProject(Project project) { //only for debug
-    AddTaskToProject(new Task(title: "test1"), project);
-    AddTaskToProject(new Task(title: "test2"), project);
+    AddTaskToProject(new Task(title: "test1",description: ""), project);
+    AddTaskToProject(new Task(title: "test2",description: ""), project);
 
   }
 
   List<ProjectBox> GetProjects() {
     return projectBoxes;
   }
-  List<Task> GetThreeUndoneTasksInProject(Project project) {
+ /* List<Task> GetThreeUndoneTasksInProject(Project project) {
     ge
-  }
+  }*/
 
 }

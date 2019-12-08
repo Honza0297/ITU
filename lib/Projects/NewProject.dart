@@ -66,7 +66,7 @@ class _NewProjectState extends State<NewProject> {
               } else {
                 controller.AddProject(new Project(title: title, tasks: new List<TaskBox>()));
                 try {
-                  viewController.Refresh(newTaskType);
+                  viewController.Refresh("project");
                 } catch (e) {}
                   Navigator.pop(context);
               }

@@ -18,7 +18,10 @@ class ProjectsView extends State<ProjectsTab>{
     return ListView(children: projects,);
   }
 
-  void refresh() {
-    projects = controller.GetProjects();
+  void refresh()
+  {
+    setState(() {
+      projects = controller.GetProjects();
+    });
   }
 }

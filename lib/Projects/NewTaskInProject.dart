@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:itu/Projects/DetailProjectScreen.dart';
 import 'package:itu/Projects/Project.dart';
 import '../Controller.dart';
 import '../ViewController.dart';
@@ -94,7 +95,7 @@ class _NewTaskInProjectState extends State<NewTaskInProject> {
           IconButton(
             icon: Icon(Icons.check, color: Colors.white, ),
             onPressed: (){
-                controller.AddTaskToProject(new Task(title: title, description: text, type: newTaskType, ), this.widget.project);
+                controller.AddTaskToProject(new Task(title: title, description: text, type: newTaskType, ), actualProject);
                 viewController.Refresh(newTaskType);
                 Navigator.pop(context);
             },
