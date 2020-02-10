@@ -100,7 +100,7 @@ class _NewTaskInProjectState extends State<NewTaskInProject> {
           IconButton(
             icon: Icon(Icons.check, color: Colors.white, ),
             onPressed: (){
-                controller.AddTaskToProject(new Task(title: title, description: text, type: newTaskType, ), actualProject);
+                controller.AddTask(new Task(title: title, description: text, type: newTaskType, project: actualProject.title));
                 viewController.Refresh(newTaskType);
                 Navigator.pop(context);
             },

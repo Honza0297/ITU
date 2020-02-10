@@ -69,7 +69,8 @@ class TaskBox extends StatelessWidget {
                   )
                   ),
 
-                ],), actions: <Widget>[ this.task.state == States.active ?
+                ],),
+              actions: <Widget>[ this.task.state == States.active ?
             IconSlideAction(
               color: Colors.green,
               icon: Icons.done,

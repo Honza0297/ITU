@@ -40,12 +40,11 @@ class NewTask extends StatefulWidget {
       case 3:
         newTaskType = Types.maybe;
         break;
-        //todo project type
+      case 4:
+        newTaskType = Types.project;
     }
   }
   Color col;
-  //String type;
-  //static TypeData typeClass = new TypeData(type);
 
   @override
   _NewTaskState createState() => _NewTaskState();
@@ -210,9 +209,11 @@ class _NewTaskState extends State<NewTask> {
                     onPressed: () => RemoveReminder(),
                   ),
                 ) : Container(),//just an empty widget (null is not working)
+
               ],
             ),
           ),
+
         ],
       ),
     );
@@ -221,7 +222,6 @@ class _NewTaskState extends State<NewTask> {
 
 
 class MyToggleButtons extends StatefulWidget{
-
   @override
   MyToggleButtonsState createState() => MyToggleButtonsState();
 }

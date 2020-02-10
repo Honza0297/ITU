@@ -36,35 +36,65 @@ class ProjectBox extends StatelessWidget {
           await Navigator.push(context, MaterialPageRoute(builder: (context) => DetailProjectScreen(project: project,id: id,)));
       },
       child: Card(
+        child: Slidable(
           key: Key((this.id).toString()),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Padding(padding: EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 20,
-              ),
-              child: Align(
-                alignment: Alignment.topLeft,
-
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(this.project.title,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-
-                      )
-                    ,)
-                  ],
+          actionPane: SlidableDrawerActionPane(),
+          actionExtentRatio: 0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: Padding(padding: EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 20,
                 ),
+                  child: Align(
+                    alignment: Alignment.topLeft,
 
-              ),
-            ),
-            )
-          ],
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(this.project.title,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                          ,)
+                      ],
+                    ),
+
+                  ),
+                ),
+              )
+            ],
           ),
+          secondaryActions: <Widget>[
+            IconSlideAction(
+              color: Colors.red,
+              icon: Icons.delete,
+              onTap: null,
+            ),
+          ],
+          dismissal: SlidableDismissal(
+            dismissThresholds: <SlideActionType, double>{
+              SlideActionType.primary : 0.3,
+              SlideActionType.secondary: 0.3
+            },
+            child: SlidableDrawerDismissal(),
+            onDismissed: (action){
+              switch(action)
+              {
+              case SlideActionType.primary:
+                break;
+              case SlideActionType.secondary:
+                controller.KillProject(this.id, this.project.title);
+                viewController.Refresh(Types.project);
+                break;
+              default:
+                break;
+            }
+            }
+          ),
+        ),
         ),
       ),
     );

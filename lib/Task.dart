@@ -15,11 +15,12 @@ import 'main.dart';
 import 'TaskBox.dart';
 
 class Task{
-  Task({Key key, this.title, this.description, this.type, this.date, this.state = "active"});
+  Task({Key key, this.title, this.description, this.type, this.date, this.state = "active", this.project="none"});
 
   String title;
   String description;
   String type; //to-do, asap, maybe
   DateTime date;
   String state;// = "active"; //or deleted, done...
+  String project;
 }

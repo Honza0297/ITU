@@ -37,7 +37,7 @@ class DetailProjectScreenView extends State<DetailProjectScreen> {
 
   Project project;
   int id;
-  List<TaskBox> tasks = controller.GetTasksInProject(actualProject);
+  List<TaskBox> tasks = controller.GetTasksByProject(actualProject.title);
   
   @override
   void initState(){
@@ -46,7 +46,7 @@ class DetailProjectScreenView extends State<DetailProjectScreen> {
 
   void refresh() {
     setState(() {
-      tasks = controller.GetTasksInProject(actualProject);
+      tasks = controller.GetTasksByProject(actualProject.title);
     });
   }
 

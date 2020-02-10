@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:itu/DetailTaskScreen.dart';
 import 'package:itu/NewTask.dart';
 import 'package:itu/Projects/Project.dart';
 import '../Controller.dart';
@@ -69,7 +70,7 @@ class _NewProjectState extends State<NewProject> {
                   }
                 );
               } else {
-                controller.AddProject(new Project(title: title, tasks: new List<TaskBox>()));
+                controller.AddProject(new Project(title: title,));
                 try {
                   viewController.Refresh("project");
                 } catch (e) {}
